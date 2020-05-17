@@ -2,11 +2,12 @@ import psycopg2 as pg2
 import xlsxwriter as xls
 
 def get_queries(file):
-    count = 0
     query = ''
     statements=[]
     labels=[]
-
+    
+    #Goes through file line by line. Removes \n first. If the line is a comment, it adds it to the label list.
+    #It will continue adding the lines until it finds the ; at which point is assumes end of query.
     for line in file:
         line_stripped = line.strip('\n')
         label_text=''
