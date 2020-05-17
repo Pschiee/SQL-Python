@@ -1,0 +1,10 @@
+-- Query 1
+SELECT COUNT(*) FROM customer;
+-- Query 2
+SELECT COUNT(*)
+FROM film;
+-- Query 3
+SELECT
+COUNT(*)
+FROM
+address;

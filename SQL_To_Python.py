@@ -57,10 +57,10 @@ def write_to_excel(workbook_name,data,labels):
         row+=1
     workbook.close()    
         
-workbook_name = 'SQL.xlsx'
-queries_name = 'Queries.txt'
+workbook_name = 'Example.xlsx'
+queries_name = 'Example_Queries.txt'
 
-conn = pg2.connect(database='dvdrental',user='postgres',password='password',host='localhost')
+conn = pg2.connect(database='dvdrental',user='postgres',password='[PASSWORD GOES HERE]',host='localhost')
 cur=conn.cursor()
 
 file = open(queries_name,"r")
