@@ -1,6 +1,3 @@
-import psycopg2 as pg2
-import xlsxwriter as xls
-
 def get_queries(file):
     query = ''
     statements=[]
@@ -26,6 +23,7 @@ def get_queries(file):
 
 def execute_queries(queries,cur):
     data=[]
+    #Goes through queries and executes them.
     for i in range(0,len(queries)):
         cur.execute(queries[i])
         temp = cur.fetchall()
@@ -45,8 +43,7 @@ def write_to_excel(workbook_name,data,labels):
 
 ###The start of the for loop. It will run through every result in the "data" list which is all our data.
     for i in data:
-    # This for loop isn't needed but it is so you can add '1,2,3' in the first column. It says "If the column we are writing in
-    # is the first column, then put the row we are on. If it is the second column, then put data. 
+        #For loops to determine which column we are writing to. Column 1 = number. Column 2 = Label and column 3 = Result
         for column in range(0,3):
             if column ==0:
                 worksheet.write(row,column,row+1) 
@@ -57,13 +54,20 @@ def write_to_excel(workbook_name,data,labels):
     #Once we have finished that row then add 1 to row to go to the next row
         row+=1
     workbook.close()    
-        
+    
+################################################## Code starts here ##############################
+import psycopg2 as pg2
+import xlsxwriter as xls
+
+       
 workbook_name = 'Example.xlsx'
 queries_name = 'Example_Queries.txt'
 
+### Creates connection to the database
 conn = pg2.connect(database='dvdrental',user='postgres',password='[PASSWORD GOES HERE]',host='localhost')
+### Creates cursor so we know where to execute code.
 cur=conn.cursor()
-
+### Opens the file in read only mode.
 file = open(queries_name,"r")
 queries,labels = get_queries(file) 
 file.close()
